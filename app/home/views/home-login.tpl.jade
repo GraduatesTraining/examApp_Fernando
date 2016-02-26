@@ -1,0 +1,21 @@
+div#form-container(layout="row" layout-align="center center" flex)
+  div#inputs(layout="column" layout-align="center" flex="40")
+    div#icon(flex)
+      i.fa.fa-user.fa-4x
+      div.login-header 
+        h3 LOGIN
+
+    div#md-whiteframe.md-whiteframe-z2(layout-padding flex)
+      form(name="loginForm" layout="column" novalidate)
+          md-input-container
+            label Email
+            input(type="email" name="email" ng-model="homeLogin.credentials.email" required)
+            div.validationMessage(ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched || loginForm.$submitted")
+              div(ng-message="required") Email is required
+              div(ng-message="email") Insert a valid email
+          md-input-container
+            label Password
+            input(type="password" name="password" ng-model="homeLogin.credentials.password" required)
+            div.validationMessage(ng-messages="loginForm.password.$error" ng-show="loginForm.password.$touched || loginForm.$submitted")
+              div(ng-message="required") Password is required
+          md-button.md-raised.md-primary(type="submit" ng-click="loginForm.$valid ? homeLogin.login() : null") Login

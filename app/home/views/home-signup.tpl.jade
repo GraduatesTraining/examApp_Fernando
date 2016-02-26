@@ -1,0 +1,32 @@
+div#form-container(layout="row" layout-align="center center" flex)
+  div#inputs(layout="column" layout-align="center" flex="40")
+    div#icon(flex)
+      i.fa.fa-user.fa-4x
+      div.signup-header 
+        h3 SIGN UP
+
+    div#md-whiteframe.md-whiteframe-z2(layout-padding flex)
+      form(name="signupForm" layout="column" novalidate)
+          md-input-container
+            label Username
+            input(type="text" name="username" ng-model="homeSignup.username" required)
+            div.validationMessage(ng-messages="signupForm.username.$error" ng-show="signupForm.username.$touched || signupForm.$submitted")
+              p(ng-message="required") Username is required
+          md-input-container
+            label Email
+            input(type="email" name="email" ng-model="homeSignup.email" required)
+            div.validationMessage(ng-messages="signupForm.email.$error" ng-show="signupForm.email.$touched || signupForm.$submitted")
+              div(ng-message="required") Email is required
+              div(ng-message="email") Insert a valid email
+          md-input-container
+            label Password
+            input(type="password" name="password" ng-model="homeSignup.password" required)
+            div.validationMessage(ng-messages="signupForm.password.$error" ng-show="signupForm.password.$touched || signupForm.$submitted")
+              div(ng-message="required") Password is required
+          md-input-container
+            label Confirm password
+            input(type="password" name="passwordConfirm" ng-model="password" required ng-pattern="{{homeSignup.password}}")
+            div.validationMessage(ng-messages="signupForm.passwordConfirm.$error" ng-show="signupForm.passwordConfirm.$touched || signupForm.$submitted")
+              div(ng-message="required") Confirmation of password is required
+              div(ng-message="pattern") Password fields doesn't match
+          md-button.md-raised.md-primary(type="submit" ng-click="homeSignup.signup()") Sign Up
