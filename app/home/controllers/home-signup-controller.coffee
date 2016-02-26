@@ -8,8 +8,21 @@
 
 ###
 class HomeSignupCtrl
-  constructor: ->
+  @$inject = ['AuthService']
+
+  constructor: (@AuthService) ->
     @ctrlName = 'HomeSignupCtrl'
+    @credentials = @signup_credentials()
+
+  signup_credentials: ->
+    {
+      username: undefined
+      email: undefined
+      password: undefined
+    }
+
+  signup: ->
+    @AuthService.signup(@credentials)
 
 angular
   .module('home')

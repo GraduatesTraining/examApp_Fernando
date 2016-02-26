@@ -10,7 +10,6 @@
 class HomeCtrl
   constructor: ->
     @ctrlName = 'HomeCtrl'
-    console.log "Contoller Home"
 
 angular
   .module('home')

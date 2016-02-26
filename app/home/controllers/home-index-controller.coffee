@@ -10,7 +10,6 @@
 class HomeIndexCtrl
   constructor: ->
     @ctrlName = 'HomeIndexCtrl'
-    console.log "Contoller Index"
 
 angular
   .module('home')

@@ -10,13 +10,15 @@
 class HomeLoginCtrl
   @$inject = ['AuthService']
 
-  credentials: {
-    email: undefined
-    password: undefined
-  }
-
   constructor: (@AuthService) ->
     @ctrlName = 'HomeLoginCtrl'
+    @credentials = @login_credentials()
+
+  login_credentials: ->
+    {
+      email: undefined
+      password: undefined
+    }
 
   login: ->
     @AuthService.login(@credentials)
