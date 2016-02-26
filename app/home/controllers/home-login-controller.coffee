@@ -19,7 +19,7 @@ class HomeLoginCtrl
     @ctrlName = 'HomeLoginCtrl'
 
   login: ->
-    console.log (@credentials)
+    @AuthService.login(@credentials)
 
 angular
   .module('home')
