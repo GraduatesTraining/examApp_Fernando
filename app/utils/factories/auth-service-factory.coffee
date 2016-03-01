@@ -34,3 +34,4 @@ AuthService =  ($q, $http) ->
 angular
   .module 'utils'
   .factory 'AuthService', ['$q', '$http', AuthService]
+  
