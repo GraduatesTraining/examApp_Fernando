@@ -1,6 +1,6 @@
 'use strict'
 
 angular
-  .module 'myCognizantTraining'
+  .module 'examApp'
   .config ($urlRouterProvider) ->
     $urlRouterProvider.otherwise '/home'
