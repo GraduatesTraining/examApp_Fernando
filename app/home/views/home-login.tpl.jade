@@ -1,11 +1,12 @@
 div#form-container(layout="row" layout-align="center center" flex)
+  div(flex="30")
   div#inputs(layout="column" layout-align="center" flex="40")
     div#icon(flex)
       i.fa.fa-user.fa-4x
       div.login-header 
         h3 LOGIN
 
-    div#md-whiteframe.md-whiteframe-z2(layout-padding flex)
+    div#md-whiteframe.md-whiteframe-z2(layout="column" layout-padding flex)
       form(name="loginForm" layout="column" novalidate)
           md-input-container
             label Email
@@ -22,6 +23,10 @@ div#form-container(layout="row" layout-align="center center" flex)
           div - Or -
           md-button.md-raised(ng-click="homeLogin.githubLogin()")
             div(layout="row" layout-align="center")
-              i.fa.fa-github.fa-2x
+              i.fa.fa-github.fa-2x(style="margin-top:5px")
               span(flex="5")
               div Login with GitHub
+      md-divider
+      div(layout="row" layout-align="end")
+        div If you don't have an account yet, #[a(ui-sref="home.signup") #[strong() Signup ]] now
+  div(flex="30")

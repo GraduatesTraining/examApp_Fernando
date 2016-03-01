@@ -1,4 +1,5 @@
 div#form-container(layout="row" layout-align="center center" flex)
+  div(flex="30")
   div#inputs(layout="column" layout-align="center" flex="40")
     div#icon(flex)
       i.fa.fa-user.fa-4x
@@ -30,3 +31,4 @@ div#form-container(layout="row" layout-align="center center" flex)
               div(ng-message="required") Confirmation of password is required
               div(ng-message="pattern") Password fields doesn't match
           md-button.md-raised.md-primary(type="submit" ng-click="signupForm.$valid ? homeSignup.signup() : null") Sign Up
+  div(flex="30")
