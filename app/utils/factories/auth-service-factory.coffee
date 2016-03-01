@@ -2,7 +2,7 @@
 
 ###*
  # @ngdoc service
- # @name home.factory:AuthService
+ # @name utils.factory:AuthService
 
  # @description
 
@@ -32,5 +32,5 @@ AuthService =  ($q, $http) ->
   AuthServiceBase
 
 angular
-  .module 'home'
+  .module 'utils'
   .factory 'AuthService', ['$q', '$http', AuthService]

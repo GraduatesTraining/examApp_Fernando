@@ -4,7 +4,7 @@
 describe 'AuthService', ->
   factory = undefined
 
-  beforeEach module 'home'
+  beforeEach module 'utils'
 
   beforeEach inject (AuthService) ->
     factory = AuthService

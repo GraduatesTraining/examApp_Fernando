@@ -11,5 +11,6 @@ angular
     'ngMessages',
     'ui.router',
     'home',
-    'dashboard'
+    'dashboard',
+    'utils'
   ]
