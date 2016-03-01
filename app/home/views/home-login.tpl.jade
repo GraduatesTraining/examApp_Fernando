@@ -19,3 +19,9 @@ div#form-container(layout="row" layout-align="center center" flex)
             div.validationMessage(ng-messages="loginForm.password.$error" ng-show="loginForm.password.$touched || loginForm.$submitted")
               div(ng-message="required") Password is required
           md-button.md-raised.md-primary(type="submit" ng-click="loginForm.$valid ? homeLogin.login() : null") Login
+          div - Or -
+          md-button.md-raised(ng-click="homeLogin.githubLogin()")
+            div(layout="row" layout-align="center")
+              i.fa.fa-github.fa-2x
+              span(flex="5")
+              div Login with GitHub
