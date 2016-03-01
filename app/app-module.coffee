@@ -10,5 +10,6 @@ angular
     'ngMaterial',
     'ngMessages',
     'ui.router',
-    'home'
+    'home',
+    'dashboard'
   ]

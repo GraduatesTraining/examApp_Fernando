@@ -1,0 +1,62 @@
+.dashboard-container(layout="row" layout-fill flex)
+  md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id="left" md-is-locked-open="$mdMedia('gt-md')")
+    md-toolbar.md-tall.md-hue-2
+      .md-toolbar-tools-bottom.inset(layout="column" layout-align="space-between" flex)
+        div Insert Avatar Here
+        span(flex) 
+        .personalData(layout="column")
+          div FirstName LastName
+          div email@email.com
+    md-list(flex layout="column")
+      md-list-item.cursor-pointer(md-ink-ripple ui-sref="dashboard.main")
+        a
+          div(layout="row" layout-align="start center")
+            .inset
+              i.material-icons dashboard
+            .inset Dashboard
+      md-list-item.cursor-pointer(md-ink-ripple ui-sref="dashboard.exams")
+        a
+          div(layout="row" layout-align="start center")
+            .inset
+              i.material-icons library_books
+            .inset Exams
+      md-list-item.cursor-pointer(md-ink-ripple ui-sref="dashboard.stats")
+        a
+          div(layout="row" layout-align="start center")
+            .inset
+              i.material-icons assessment
+            .inset Stats
+      md-list-item
+        span(flex)
+      md-divider
+      md-subheader User Options
+      md-list-item.cursor-pointer(md-ink-ripple ui-sref="dashboard.user")
+        a
+          div(layout="row" layout-align="start center")
+            .inset
+              i.material-icons person
+            .inset Profile
+      md-list-item.cursor-pointer(md-ink-ripple  ng-click="dashboardCtrl.logout()")
+        a
+          div(layout="row" layout-align="start center")
+            .inset
+              i.material-icons power_settings_new
+            .inset Logout
+
+  div(layout="column" flex)
+    md-toolbar#dashboard-toolbar
+      .md-toolbar-tools
+        div(layout="row" layout-align="start center" flex)
+          md-button.md-icon-button(aria-label="menu" hide-gt-md ng-click="dashboardCtrl.toggleSidenav('left')")
+            i.material-icons menu
+        div(layout="row" layout-align="start center")
+          md-button.md-icon-button(aria-label="inbox")
+            i.material-icons email
+
+
+    md-content(layout="column" flex)
+      ui-view(flex)
+      
+    footer#main_footer(layout="row" layout-align="center")
+      div © 2016 Cognizant
+          
