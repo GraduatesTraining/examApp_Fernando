@@ -1,4 +1,4 @@
-# myCognizantTraining
+# myApp
 
 *Generated with [ng-poly](https://github.com/dustinspecker/generator-ng-poly/tree/v0.11.5) version 0.11.5*
 

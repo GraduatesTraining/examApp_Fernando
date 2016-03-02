@@ -1,15 +1,16 @@
 'use strict'
 
 ###* @ngdoc object
- # @name myCognizantTraining
+ # @name examApp
  # @description
 
 ###
 angular
-  .module 'myCognizantTraining', [
+  .module 'examApp', [
     'ngMaterial',
     'ngMessages',
     'ui.router',
     'home',
-    'dashboard'
+    'dashboard',
+    'utils'
   ]

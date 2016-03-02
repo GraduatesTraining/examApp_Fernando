@@ -8,7 +8,7 @@ AuthenticationManagement = ($rootScope, $state, AuthService) ->
       event.preventDefault()
 
 angular
-  .module 'myCognizantTraining'
+  .module 'examApp'
   .run AuthenticationManagement
 
 
