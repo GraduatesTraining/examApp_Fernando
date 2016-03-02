@@ -47,7 +47,7 @@ AuthService =  (FirebaseService, $q, $http) ->
     FirebaseService.unauth()
     
   AuthServiceBase.isAuthenticated = ->
-    if FirebaseService.getAuth()? then true else false
+    FirebaseService.getAuth()?
 
   AuthServiceBase
 
