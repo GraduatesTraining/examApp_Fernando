@@ -19,6 +19,9 @@ AuthService =  (FirebaseService, $q, $http) ->
           console.log("Authenticated successfully with payload:", authData)
 
 
+  AuthServiceBase.githubLogin = ->
+    console.log "githubLogin() called"
+
   AuthServiceBase.signup = (credentials) ->
     FirebaseService.createUser credentials,
       (error, userData) ->
