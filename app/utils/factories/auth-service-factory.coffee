@@ -30,24 +30,24 @@ AuthService =  (FirebaseService, $q, $http) ->
   AuthServiceBase.signup = (credentials) ->
     FirebaseService.createUser credentials,
       (error, userData) ->
-        if (error)
-          switch (error.code)
-            when "EMAIL_TAKEN"
-              console.log("""The new user account cannot be created
-               because the email is already in use.""")
-            when "INVALID_EMAIL"
-              console.log("The specified email is not a valid email.")
-            else
-              console.log("Error creating user:", error)
-        else
-          console.log("Successfully created user account with uid:"
+        switch (error?.code)
+          when "EMAIL_TAKEN"
+            console.log("""The new user account cannot be created
+              because the email is already in use.""")
+          when "INVALID_EMAIL"
+            console.log("The specified email is not a valid email.")
+          when undefined
+            console.log("Successfully created user account with uid:"
             , userData.uid)
+          else
+            console.log("Error creating user:", error)
+          
 
   AuthServiceBase.logout = ->
     FirebaseService.unauth()
     
   AuthServiceBase.isAuthenticated = ->
-    if FirebaseService.getAuth() is null then false else true
+    if FirebaseService.getAuth()? then true else false
 
   AuthServiceBase
 
