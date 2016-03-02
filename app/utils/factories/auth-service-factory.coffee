@@ -20,7 +20,12 @@ AuthService =  (FirebaseService, $q, $http) ->
 
 
   AuthServiceBase.githubLogin = ->
-    console.log "githubLogin() called"
+    FirebaseService.authWithOAuthPopup "github",
+      (error, authData) ->
+        if (error)
+          console.log("Login Failed!", error)
+        else
+          console.log("Authenticated successfully with payload:", authData)
 
   AuthServiceBase.signup = (credentials) ->
     FirebaseService.createUser credentials,
@@ -43,7 +48,6 @@ AuthService =  (FirebaseService, $q, $http) ->
     
   AuthServiceBase.isAuthenticated = ->
     if FirebaseService.getAuth() is null then false else true
-
 
   AuthServiceBase
 
