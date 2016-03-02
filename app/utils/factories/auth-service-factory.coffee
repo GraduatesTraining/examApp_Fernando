@@ -15,6 +15,9 @@ AuthService =  ($q, $http) ->
     console.log "login() called with credentials:"
     console.log credentials
 
+  AuthServiceBase.githubLogin = ->
+    console.log "githubLogin() called"
+
   AuthServiceBase.signup = (credentials) ->
     # TODO
     console.log "signup() called with credentials:"

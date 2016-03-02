@@ -23,6 +23,9 @@ class HomeLoginCtrl
   login: ->
     @AuthService.login(@credentials)
 
+  githubLogin: ->
+    @AuthService.githubLogin()
+
 angular
   .module('home')
   .controller 'HomeLoginCtrl', HomeLoginCtrl
