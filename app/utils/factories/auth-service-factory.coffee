@@ -7,40 +7,40 @@
  # @description
 
 ###
-AuthService =  (FirebaseService, $q, $http) ->
+AuthService =  (FirebaseService, $q, $http, $log) ->
   AuthServiceBase = {}
 
   AuthServiceBase.login = (credentials) ->
     FirebaseService.authWithPassword credentials,
       (error, authData) ->
         if (error)
-          console.log("Login Failed!", error)
+          $log.debug("Login Failed!", error)
         else
-          console.log("Authenticated successfully with payload:", authData)
+          $log.debug("Authenticated successfully with payload:", authData)
 
 
   AuthServiceBase.githubLogin = ->
     FirebaseService.authWithOAuthPopup "github",
       (error, authData) ->
         if (error)
-          console.log("Login Failed!", error)
+          $log.debug("Login Failed!", error)
         else
-          console.log("Authenticated successfully with payload:", authData)
+          $log.debug("Authenticated successfully with payload:", authData)
 
   AuthServiceBase.signup = (credentials) ->
     FirebaseService.createUser credentials,
       (error, userData) ->
         switch (error?.code)
           when "EMAIL_TAKEN"
-            console.log("""The new user account cannot be created
+            $log.debug("""The new user account cannot be created
               because the email is already in use.""")
           when "INVALID_EMAIL"
-            console.log("The specified email is not a valid email.")
+            $log.debug("The specified email is not a valid email.")
           when undefined
-            console.log("Successfully created user account with uid:"
+            $log.debug("Successfully created user account with uid:"
             , userData.uid)
           else
-            console.log("Error creating user:", error)
+            $log.debug("Error creating user:", error)
           
 
   AuthServiceBase.logout = ->
@@ -53,4 +53,10 @@ AuthService =  (FirebaseService, $q, $http) ->
 
 angular
   .module 'utils'
-  .factory 'AuthService', ['FirebaseService', '$q', '$http', AuthService]
+  .factory 'AuthService', [
+    'FirebaseService',
+    '$q',
+    '$http',
+    '$log',
+    AuthService
+  ]
