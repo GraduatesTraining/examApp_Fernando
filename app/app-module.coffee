@@ -10,6 +10,7 @@ angular
     'ngMaterial',
     'ngMessages',
     'ui.router',
+    'firebase',
     'home',
     'dashboard',
     'utils'

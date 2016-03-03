@@ -7,34 +7,50 @@
  # @description
 
 ###
-AuthService =  ($q, $http) ->
+AuthService =  (FirebaseService, $q, $http) ->
   AuthServiceBase = {}
 
   AuthServiceBase.login = (credentials) ->
-    # TODO
-    console.log "login() called with credentials:"
-    console.log credentials
+    FirebaseService.authWithPassword credentials,
+      (error, authData) ->
+        if (error)
+          console.log("Login Failed!", error)
+        else
+          console.log("Authenticated successfully with payload:", authData)
+
 
   AuthServiceBase.githubLogin = ->
-    console.log "githubLogin() called"
+    FirebaseService.authWithOAuthPopup "github",
+      (error, authData) ->
+        if (error)
+          console.log("Login Failed!", error)
+        else
+          console.log("Authenticated successfully with payload:", authData)
 
   AuthServiceBase.signup = (credentials) ->
-    # TODO
-    console.log "signup() called with credentials:"
-    console.log credentials
+    FirebaseService.createUser credentials,
+      (error, userData) ->
+        switch (error?.code)
+          when "EMAIL_TAKEN"
+            console.log("""The new user account cannot be created
+              because the email is already in use.""")
+          when "INVALID_EMAIL"
+            console.log("The specified email is not a valid email.")
+          when undefined
+            console.log("Successfully created user account with uid:"
+            , userData.uid)
+          else
+            console.log("Error creating user:", error)
+          
 
   AuthServiceBase.logout = ->
-    # TODO
-    console.log "logout() called"
+    FirebaseService.unauth()
     
   AuthServiceBase.isAuthenticated = ->
-    # TODO
-    console.log "isAuthenticated() called"
-    true
+    FirebaseService.getAuth()?
 
   AuthServiceBase
 
 angular
   .module 'utils'
-  .factory 'AuthService', ['$q', '$http', AuthService]
-  
+  .factory 'AuthService', ['FirebaseService', '$q', '$http', AuthService]
