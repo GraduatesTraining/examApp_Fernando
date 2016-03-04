@@ -1,12 +1,11 @@
 .dashboard-container(layout="row" layout-fill flex)
   md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id="left" md-is-locked-open="$mdMedia('gt-md')")
     md-toolbar.md-tall.md-hue-2
-      .md-toolbar-tools-bottom.inset(layout="column" layout-align="space-between" flex)
-        div Insert Avatar Here
-        span(flex) 
-        .personalData(layout="column")
-          div FirstName LastName
-          div email@email.com
+      .md-toolbar-tools-bottom.inset(layout="column" flex style="background-image: url({{dashboardCtrl.profile.avatarUrl}})")
+        span(flex)
+        .user-data-container(layout="column")
+          #username {{dashboardCtrl.profile.username}}
+          #email {{dashboardCtrl.profile.email}}
     md-list(flex layout="column")
       md-list-item.cursor-pointer(md-ink-ripple ui-sref="dashboard.main")
         a

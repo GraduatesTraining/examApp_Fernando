@@ -10,6 +10,10 @@ angular
         controller: 'DashboardCtrl'
         controllerAs: 'dashboardCtrl'
         needAuthentication: true
+        resolve: {
+          profile: (UserDataService, AuthService) ->
+            UserDataService.getUserData(AuthService.getAuthenticated())
+        }
       .state 'dashboard.main',
         url: '/dashboard'
         templateUrl: 'dashboard/views/dashboard-main.tpl.html'

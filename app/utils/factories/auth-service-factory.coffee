@@ -54,8 +54,10 @@ AuthService =  (FirebaseService, UserDataService, $state, $log) ->
     
   AuthServiceBase.isAuthenticated = ->
     FirebaseService.app().getAuth()?
-    
-    
+
+  AuthServiceBase.getAuthenticated = ->
+    FirebaseService.app().getAuth().uid
+
   # Private methods:
   firstLoginSetup = (userData, credentials) ->
     UserDataService.saveUserDataOnInit(userData, credentials?.username)
@@ -63,7 +65,7 @@ AuthService =  (FirebaseService, UserDataService, $state, $log) ->
         loginSetup userData.uid
 
   loginSetup = (uid) ->
-    UserDataService.getUserData(uid)
+    # UserDataService.getUserData(uid)
     $state.go 'dashboard.main'
 
   AuthServiceBase

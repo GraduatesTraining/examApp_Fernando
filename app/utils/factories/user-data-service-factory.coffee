@@ -7,15 +7,15 @@
  # @description
 
 ###
-UserDataService = (FirebaseService, $log) ->
+UserDataService = (FirebaseService, $log, $q) ->
   UserDataServiceBase = {}
 
-  UserDataServiceBase.currentUser = {
+  UserDataServiceBase.currentUser =
     id: undefined
     username: undefined
     email: undefined
     avatarUrl: undefined
-  }
+
 
   UserDataServiceBase.saveUserDataOnInit = (userData, username) ->
     switch userData?.provider
@@ -26,16 +26,19 @@ UserDataService = (FirebaseService, $log) ->
         newUser userData.uid, userData.github.username,
           userData.github.email,
           userData.github.profileImageURL
-    FirebaseService.user(userData.uid).set UserDataServiceBase.currentUser
+    FirebaseService.user(userData.uid).set @currentUser
     
   UserDataServiceBase.getUserData = (id) ->
+    deferred = $q.defer()
     FirebaseService.user(id).on "value",
-    (data) =>
-      angular.extend @currentUser, data.val()
+    (data) ->
+      deferred.resolve(data.val())
     , (error) ->
       $log.error "Couldn't read user with id: #{id}"
+      deferred.reject error
       
-   
+    deferred.promise
+
   UserDataServiceBase.userExists = (id) ->
     doesExist = false
     FirebaseService.user(id).on "value",
@@ -65,5 +68,6 @@ angular
   .factory 'UserDataService', [
     'FirebaseService',
     '$log',
+    '$q',
     UserDataService
   ]
