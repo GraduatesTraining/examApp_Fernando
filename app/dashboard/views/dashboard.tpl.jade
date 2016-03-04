@@ -1,32 +1,27 @@
 .dashboard-container(layout="row" layout-fill flex)
   md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id="left" md-is-locked-open="$mdMedia('gt-md')")
     md-toolbar.md-tall.md-hue-2
-      .md-toolbar-tools-bottom.inset(layout="column" layout-align="space-between" flex)
-        div Insert Avatar Here
-        span(flex) 
-        .personalData(layout="column")
-          div FirstName LastName
-          div email@email.com
+      .md-toolbar-tools-bottom.inset(layout="column" flex style="background-image: url({{dashboardCtrl.profile.avatarUrl}})")
+        span(flex)
+        .user-data-container(layout="column")
+          #username {{dashboardCtrl.profile.username}}
+          #email {{dashboardCtrl.profile.email}}
     md-list(flex layout="column")
       md-list-item(ng-repeat="item in dashboardCtrl.sidenavTopMenu" ui-sref-active='active-menu' ui-sref="{{item.ref}}")
-        div(layout="row" layout-align="start center")
-          .inset
-            i.material-icons {{item.icon}}
-          .inset {{item.title}}
+        i.material-icons(flex="20") {{item.icon}}
+        span(flex="5")
+        p(flex="75") {{item.title}}
       md-list-item
       md-divider
       md-subheader User Options
       md-list-item(ui-sref-active='active-menu' ui-sref="dashboard.user")
-        div(layout="row" layout-align="start center")
-          .inset
-            i.material-icons person
-          .inset Profile
-      md-list-item( ng-click="dashboardCtrl.logout()")
-        div(layout="row" layout-align="start center")
-          .inset
-            i.material-icons power_settings_new
-          .inset Logout
-
+        i.material-icons(flex="20") person
+        span(flex="5")
+        p(flex="75") Profile
+      md-list-item(ng-click="dashboardCtrl.logout()")
+        i.material-icons(flex="20") power_settings_new
+        span(flex="5")
+        p(flex="75") Logout
   div(layout="column" flex)
     md-toolbar#dashboard-toolbar
       .md-toolbar-tools

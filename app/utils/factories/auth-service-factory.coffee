@@ -7,47 +7,66 @@
  # @description
 
 ###
-AuthService =  (FirebaseService, $q, $http, $log) ->
+AuthService =  (FirebaseService, UserDataService, $state, $log) ->
   AuthServiceBase = {}
 
-  AuthServiceBase.login = (credentials) ->
-    FirebaseService.authWithPassword credentials,
+  AuthServiceBase.login = (credentials, firstlogin = false) ->
+    FirebaseService.app().authWithPassword credentials,
       (error, authData) ->
-        if (error)
-          $log.debug("Login Failed!", error)
+        if (error?)
+          $log.error("Login Failed!", error)
         else
-          $log.debug("Authenticated successfully with payload:", authData)
-
+          if firstlogin
+            firstLoginSetup authData, credentials
+          else
+            loginSetup authData.uid
 
   AuthServiceBase.githubLogin = ->
-    FirebaseService.authWithOAuthPopup "github",
+    FirebaseService.app().authWithOAuthPopup "github",
       (error, authData) ->
-        if (error)
-          $log.debug("Login Failed!", error)
+        if (error?)
+          $log.error("Login Failed!", error)
         else
-          $log.debug("Authenticated successfully with payload:", authData)
+          if UserDataService.userExists(authData.uid)
+            loginSetup(authData.uid)
+          else
+            firstLoginSetup(authData)
 
   AuthServiceBase.signup = (credentials) ->
-    FirebaseService.createUser credentials,
-      (error, userData) ->
+    FirebaseService.app().createUser credentials,
+      (error, userData) =>
         switch (error?.code)
           when "EMAIL_TAKEN"
-            $log.debug("""The new user account cannot be created
+            $log.error("""The new user account cannot be created
               because the email is already in use.""")
           when "INVALID_EMAIL"
-            $log.debug("The specified email is not a valid email.")
+            $log.error("The specified email is not a valid email.")
           when undefined
-            $log.debug("Successfully created user account with uid:"
-            , userData.uid)
+            @login(credentials, true)
           else
-            $log.debug("Error creating user:", error)
+            $log.error("Error creating user:", error)
           
 
   AuthServiceBase.logout = ->
-    FirebaseService.unauth()
+    UserDataService.clearUser()
+    FirebaseService.app().unauth()
+    $state.go 'home.index'
     
   AuthServiceBase.isAuthenticated = ->
-    FirebaseService.getAuth()?
+    FirebaseService.app().getAuth()?
+
+  AuthServiceBase.getAuthenticated = ->
+    FirebaseService.app().getAuth().uid
+
+  # Private methods:
+  firstLoginSetup = (userData, credentials) ->
+    UserDataService.saveUserDataOnInit(userData, credentials?.username)
+      .then (data) ->
+        loginSetup userData.uid
+
+  loginSetup = (uid) ->
+    # UserDataService.getUserData(uid)
+    $state.go 'dashboard.main'
 
   AuthServiceBase
 
@@ -55,8 +74,8 @@ angular
   .module 'utils'
   .factory 'AuthService', [
     'FirebaseService',
-    '$q',
-    '$http',
+    'UserDataService',
+    '$state',
     '$log',
     AuthService
   ]

@@ -8,7 +8,7 @@
 
 ###
 class DashboardCtrl
-  @$inject = ['AuthService','$mdSidenav']
+  @$inject = ['AuthService','$mdSidenav', 'profile']
 
   sidenavTopMenu: [
     {
@@ -39,7 +39,7 @@ class DashboardCtrl
     }
   ]
   
-  constructor: (@AuthService, @$mdSidenav) ->
+  constructor: (@AuthService, @$mdSidenav, @profile) ->
     @ctrlName = 'DashboardCtrl'
 
   toggleSidenav: (menuId) ->
