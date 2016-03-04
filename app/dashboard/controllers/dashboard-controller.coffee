@@ -10,6 +10,35 @@
 class DashboardCtrl
   @$inject = ['AuthService','$mdSidenav']
 
+  sidenavTopMenu: [
+    {
+      title: "Dashboard"
+      icon: "dashboard"
+      ref: "dashboard.main"
+    },
+    {
+      title: "Exams"
+      icon: "library_books"
+      ref: "dashboard.exams"
+    },
+    {
+      title: "Stats"
+      icon: "assessment"
+      ref: "dashboard.stats"
+    }
+  ]
+  sidenavBottomMenu = [
+    {
+      title: "Profile"
+      icon: "person"
+      ref: "dashboard.user"
+    },{
+      title: "Logout"
+      icon: "power_settings_new"
+      ref: ""
+    }
+  ]
+  
   constructor: (@AuthService, @$mdSidenav) ->
     @ctrlName = 'DashboardCtrl'
 
